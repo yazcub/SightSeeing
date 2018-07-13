@@ -10,19 +10,9 @@ ApplicationWindow {
     height: Constants.height
     title: qsTr("Hello World")
 
-    LinearGradient {
-        anchors.fill: parent
-        start: Qt.point(0, 0)
-        end: Qt.point(0, 300)
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#7c8496" }
-            GradientStop { position: 1.0; color: "#3c4456" }
-        }
-    }
-
     header: ToolBar {
         contentHeight: control.implicitHeight
-        background: Rectangle{
+        background: Rectangle {
             color: "#5d6375"
         }
 
@@ -53,16 +43,35 @@ ApplicationWindow {
             background: Rectangle {
                 implicitWidth: 40
                 implicitHeight: 40
-                color: Qt.darker("#33333333", control.enabled && (control.checked || control.highlighted) ? 1.5 : 1.0)
+                color: Qt.darker("#33333333", control.enabled
+                                 && (control.checked
+                                     || control.highlighted) ? 1.5 : 1.0)
                 opacity: enabled ? 1 : 0.3
-                visible: control.down || (control.enabled && (control.checked || control.highlighted))
+                visible: control.down || (control.enabled
+                                          && (control.checked
+                                              || control.highlighted))
             }
         }
     }
 
-    footer: ToolBar{
+    SwipeView {
+        id: swipeView
+        anchors.fill: parent
+        currentIndex: 0
+
+        Page1 {
+        }
+
+        Page2 {
+        }
+
+        Page3 {
+        }
+    }
+
+    footer: ToolBar {
         height: 60
-        background: Rectangle{
+        background: Rectangle {
             color: "#262d3b"
         }
 
@@ -80,61 +89,44 @@ ApplicationWindow {
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
             }
 
-            background: Rectangle{
+            background: Rectangle {
                 color: "transparent"
             }
-
         }
 
-        RowLayout {
+        PageIndicator {
+            id: indicator
+
+            count: swipeView.count
+            currentIndex: swipeView.currentIndex
+            interactive: true
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            spacing: 0
-            ToolButton {
-                id: _dotter1
-                font.family: Constants.fontRegularFamily
-                text: "\uf111"
-                contentItem: Text {
-                    text: _dotter1.text
-                    color: "#fff"
-                    font.pixelSize: Qt.application.font.pixelSize * 0.8
-                }
-                background: Rectangle{
-                    color: "transparent"
+
+            delegate: Rectangle {
+                    implicitWidth: 10
+                    implicitHeight: 10
+
+                    radius: width
+                    color: "#f1f1f1"
+
+                    opacity: index === swipeView.currentIndex ? 0.95 : pressed ? 0.7 : 0.45
+
+                    Behavior on opacity {
+                        OpacityAnimator {
+                            duration: 100
+                        }
+                    }
                 }
 
+            contentItem: Row {
+                spacing: indicator.spacing
+
+                Repeater {
+                    model: indicator.count
+                    delegate: indicator.delegate
+                }
             }
-            ToolButton {
-                id: _dotter2
-                font.family: Constants.fontSolidFamily
-                text: "\uf1ce"
-                font.pixelSize: Qt.application.font.pixelSize * 0.8
-                contentItem: Text {
-                    text: _dotter2.text
-                    color: "#fff"
-                    font.pixelSize: Qt.application.font.pixelSize * 0.8
-                }
-                background: Rectangle{
-                    color: "transparent"
-                }
-
-            }
-            ToolButton {
-                id: _dotter3
-                font.family: Constants.fontSolidFamily
-                text: "\uf1ce"
-                font.pixelSize: Qt.application.font.pixelSize * 0.8
-                contentItem: Text {
-                    text: _dotter3.text
-                    color: "#fff"
-                    font.pixelSize: Qt.application.font.pixelSize * 0.8
-                }
-                background: Rectangle{
-                    color: "transparent"
-                }
-
-            }
-
         }
 
         ToolButton {
@@ -151,10 +143,9 @@ ApplicationWindow {
                 font.pixelSize: Qt.application.font.pixelSize * 1.5
             }
 
-            background: Rectangle{
+            background: Rectangle {
                 color: "transparent"
             }
-
         }
     }
 }

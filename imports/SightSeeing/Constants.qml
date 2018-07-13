@@ -84,6 +84,61 @@ QtObject {
     }
     readonly property alias fontTextFamily: fontTextLoader.name
 
+    ///////// Font text loader Lato-Regular.ttf /////////
+    property FontLoader fontTextRegularLoader: FontLoader {
+        id: fontTextRegularLoader
+        source: "./Lato/Lato-Regular.ttf"
+    }
+    readonly property alias fontTextRegularFamily: fontTextRegularLoader.name
+
+
+    ///////// Font text loader OpenSans-Regular.ttf /////////
+    property FontLoader fontOpenSansRegularLoader: FontLoader {
+        id: fontOpenSansRegularLoader
+        source: "./Open_Sans/OpenSans-Regular.ttf"
+    }
+    readonly property alias fontOpenSansRegularFamily: fontOpenSansRegularLoader.name
+
+    ///////// Font text loader poppins-regular.ttf /////////
+    property FontLoader fontPoppinsRegularLoader: FontLoader {
+        id: fontPoppinsRegularLoader
+        source: "./Poppins/Poppins-Regular.ttf"
+    }
+    readonly property alias fontPoppinsRegularFamily: fontPoppinsRegularLoader.name
+
+    ///////// Font text loader signika-regular.ttf /////////
+    property FontLoader fontSignikaRegularLoader: FontLoader {
+        id: fontSignikaRegularLoader
+        source: "./Signika/Signika-Regular.ttf"
+    }
+    readonly property alias fontSignikaRegularFamily: fontSignikaRegularLoader.name
+
+    ///////// Font text loader tittiliumweb-regular.ttf /////////
+    property FontLoader fontTittiliumWebRegularLoader: FontLoader {
+        id: fontTittiliumWebRegularLoader
+        source: "./Titillium_Web/TitilliumWeb-Regular.ttf"
+    }
+    readonly property alias fontTittiliumWebRegularFamily: fontTittiliumWebRegularLoader.name
+
+    ///////// Font text loader comfortaa-regular.ttf /////////
+    property FontLoader fontComfortaaRegularLoader: FontLoader {
+        id: fontComfortaaRegularLoader
+        source: "./Comfortaa/Comfortaa-Regular.ttf"
+    }
+    readonly property alias fontComfortaaRegularFamily: fontComfortaaRegularLoader.name
+
+
+    function guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + s4() + s4() + s4();
+//        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+
     readonly property string brand: "brand"
     readonly property string solid: "solid"
     readonly property string regular: "regular"
@@ -92,6 +147,14 @@ QtObject {
 
     readonly property int buttonsizes_width:  59  //69
     readonly property int buttonsizes_height: 59 //69
+
+    readonly property int left: 0
+    readonly property int right: 1
+
+    readonly property int up: 0
+    readonly property int down: 1
+
+
 
 
 

@@ -1,0 +1,50 @@
+RowLayout {
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.verticalCenter: parent.verticalCenter
+    spacing: 0
+    ToolButton {
+        id: _dotter1
+        font.family: Constants.fontRegularFamily
+        text: "\uf111"
+        contentItem: Text {
+            text: _dotter1.text
+            color: "#fff"
+            font.pixelSize: Qt.application.font.pixelSize * 0.8
+        }
+        background: Rectangle{
+            color: "transparent"
+        }
+
+    }
+    ToolButton {
+        id: _dotter2
+        font.family: Constants.fontSolidFamily
+        text: "\uf1ce"
+        font.pixelSize: Qt.application.font.pixelSize * 0.8
+        contentItem: Text {
+            text: _dotter2.text
+            color: "#fff"
+            font.pixelSize: Qt.application.font.pixelSize * 0.8
+        }
+        background: Rectangle{
+            color: "transparent"
+        }
+
+    }
+    ToolButton {
+        id: _dotter3
+        font.family: Constants.fontSolidFamily
+        text: "\uf1ce"
+        font.pixelSize: Qt.application.font.pixelSize * 0.8
+        contentItem: Text {
+            text: _dotter3.text
+            color: "#fff"
+            font.pixelSize: Qt.application.font.pixelSize * 0.8
+        }
+        background: Rectangle{
+            color: "transparent"
+        }
+
+    }
+
+}
