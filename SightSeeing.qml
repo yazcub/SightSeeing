@@ -5,12 +5,17 @@ import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
 ApplicationWindow {
+    id: root
     visible: true
-    width: Constants.width
-    height: Constants.height
+//    width: Constants.width
+//    height: Constants.height
+
+    width: 400
+    height: 600
     title: qsTr("Hello World")
 
     header: ToolBar {
+        id: _toolbar
         contentHeight: control.implicitHeight
         background: Rectangle {
             color: "#5d6375"
@@ -60,6 +65,13 @@ ApplicationWindow {
         currentIndex: 0
 
         Page1 {
+            onHideToolbar: {
+                _toolbar.visible = false
+                swipeView.anchors.top = root.top
+                swipeView.anchors.topMargin = -50
+                root.header.visible = false
+                root.footer.visible = false
+            }
         }
 
         Page2 {
