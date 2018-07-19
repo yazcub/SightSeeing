@@ -75,10 +75,24 @@ ApplicationWindow {
         }
 
         Page2 {
+            onHideToolbar: {
+                _toolbar.visible = false
+                swipeView.anchors.top = root.top
+                swipeView.anchors.topMargin = -50
+                root.header.visible = false
+                root.footer.visible = false
+            }
         }
 
-        Page3 {
-        }
+//        Page3 {
+//            onHideToolbar: {
+//                _toolbar.visible = false
+//                swipeView.anchors.top = root.top
+//                swipeView.anchors.topMargin = -50
+//                root.header.visible = false
+//                root.footer.visible = false
+//            }
+//        }
     }
 
     footer: ToolBar {
@@ -116,20 +130,20 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
 
             delegate: Rectangle {
-                    implicitWidth: 10
-                    implicitHeight: 10
+                implicitWidth: 10
+                implicitHeight: 10
 
-                    radius: width
-                    color: "#f1f1f1"
+                radius: width
+                color: "#f1f1f1"
 
-                    opacity: index === swipeView.currentIndex ? 0.95 : pressed ? 0.7 : 0.45
+                opacity: index === swipeView.currentIndex ? 0.95 : pressed ? 0.7 : 0.45
 
-                    Behavior on opacity {
-                        OpacityAnimator {
-                            duration: 100
-                        }
+                Behavior on opacity {
+                    OpacityAnimator {
+                        duration: 100
                     }
                 }
+            }
 
             contentItem: Row {
                 spacing: indicator.spacing

@@ -11,9 +11,12 @@ Item {
     property string blockcolor
     property string header
     property string description
+    property string histdesc
+    property string typtext
+    property string factext
     property alias rootstate: root.state
-    property string sourceX
-    property string sourceY
+    property int sourceX
+    property int sourceY
 
 
 //    width: parent.width
@@ -28,6 +31,7 @@ Item {
         width: parent.width
         height: parent.height
         opacity: 0
+        mirror: true
     }
 
     DropShadow {
@@ -54,13 +58,13 @@ Item {
         ColumnLayout {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 30
+            anchors.leftMargin: 15
             spacing: 20
             Text {
                 id: _header
                 text: header
                 color: "#fff"
-                font.pixelSize: 26
+                font.pixelSize: 22
                 font.family: Constants.fontComfortaaRegularFamily
                 font.bold: true
             }
@@ -73,6 +77,8 @@ Item {
                 font.family: Constants.fontSignikaRegularFamily
             }
         }
+
+        z:30
     }
 
     Rectangle {
@@ -87,24 +93,47 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 30
-            spacing: 20
+            spacing: 10
             Text {
-                id: _opened
-                text: header
-                color: "#fff"
-                font.pixelSize: 26
+                id: _openedtitle
+                text: "opened"
+                color: "#000"
+                font.pixelSize: 15
                 font.family: Constants.fontComfortaaRegularFamily
                 font.bold: true
             }
 
             Text {
-                id: _total_length
-                text: description
-                color: "#fff"
-                font.pixelSize: 13
-                font.family: Constants.fontSignikaRegularFamily
+                id: _openedtext
+                text: histdesc
+                color: "#000"
+                font.pixelSize: 20
+                font.family: Constants.fontComfortaaRegularFamily
+            }
+
+            Text {
+                text: ""
+                font.pixelSize: 15
+            }
+
+            Text {
+                id: typ
+                text: "type"
+                color: "#000"
+                font.pixelSize: 15
+                font.family: Constants.fontComfortaaRegularFamily
+                font.bold: true
+            }
+
+            Text {
+                id: typetext
+                text: typtext
+                color: "#000"
+                font.pixelSize: 20
+                font.family: Constants.fontComfortaaRegularFamily
             }
         }
+        z:20
     }
 
     Rectangle {
@@ -114,6 +143,7 @@ Item {
         height: 200
         color: "transparent"
         visible: false
+        opacity: 0
         ColumnLayout {
             anchors.top: parent.top
             anchors.topMargin: 30
@@ -133,7 +163,7 @@ Item {
                 id: _fact_text
                 Layout.preferredWidth: 320
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+                text: factext
 
                 color: "#fff"
                 font.pixelSize: 11
@@ -144,6 +174,8 @@ Item {
     }
 
 //    Component.onCompleted: {
+
+//        if (roo)
 //        if (position === 0) {
 //            selectblock.anchors.left = _pict1.left
 //            selectblock.anchors.leftMargin = -20
@@ -182,13 +214,16 @@ Item {
             PropertyChanges {
                 target: dropShadow
                 height: 200
+                y:0
+                x:0
             }
 
             PropertyChanges {
                 target: _pict1
                 height: 200
+                y:0
+                x:0
                 z:99
-                opacity:0
             }
 
             PropertyChanges {
@@ -208,25 +243,12 @@ Item {
             }
 
             PropertyChanges {
-                target: _opened
-                color: "#000000"
-                text: "1987"
-            }
-
-            PropertyChanges {
-                target: _total_length
-                color: "#000000"
-                text: "8888"
-            }
-
-            PropertyChanges {
                 target: _facts
                 x: 0
                 y: 400
                 visible: true
+                opacity:1
             }
-
-
         }
     ]
 
@@ -247,44 +269,48 @@ Item {
         },
         Transition {
             to: "showpage"
-//            NumberAnimation {
-//                properties: "width, height"
-//                easing.type: Easing.OutExpo
-//                duration: 1000
-//            }
-
             NumberAnimation {
-                target: description_block
-                properties: "x"
+                properties: "width, height"
                 easing.type: Easing.OutExpo
                 duration: 1000
             }
+
+
+
             NumberAnimation {
-                target: selectblock
-                property: "x,y"
-                duration: 1000
-                easing.type: Easing.OutExpo
-                from: sourceY
-
-
-
+//                target: description_block
+                property: "opacity"
+                duration: 700
+                easing.type: Easing.InOutQuad
             }
+
+            SequentialAnimation {
+                NumberAnimation {
+                    target: selectblock
+                    property: "x,y"
+                    duration: 200
+                    easing.type: Easing.OutBack
+                    from: sourceY
+
+                }
+
+                NumberAnimation {
+                    target: description_block
+                    properties: "x"
+                    duration: 700
+                    easing.type: Easing.OutExpo
+//                    from: sourceX
+                }
+            }
+
 
             NumberAnimation {
                 target: _pict1
                 property: "y"
-                from:400
+                from:100
                 to: 0
                 duration: 600
                 easing.type: Easing.OutExpo
-            }
-
-            OpacityAnimator {
-                target: _pict1
-                from:0
-                to: 1
-                duration: 1000
-                easing.type: Easing.OutCirc
             }
 
             NumberAnimation {
@@ -292,11 +318,9 @@ Item {
                 property: "y"
                 from:600
                 to: 400
-                duration: 1200
+                duration: 2000
                 easing.type: Easing.OutExpo
             }
-
-
         }
     ]
 }
